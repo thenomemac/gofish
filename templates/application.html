@@ -2,19 +2,58 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Buffalo - Gofish</title>
+    <title>Fishapp</title>
     <%= stylesheetTag("application.css") %>
     <meta name="csrf-param" content="authenticity_token" />
-    <meta name="csrf-token" content="<%= authenticity_token %>" />
+    <meta name="csrf-token" content="<%= authenticity_token %>">
     <link rel="icon" href="<%= assetPath("images/favicon.ico") %>">
   </head>
-  <body>
 
-    <div class="container">
+ 
+  <body>
+    <div class="navbar navbar-default" style="margin-bottom: 0px">
+      <div class="container">
+        <div class="navbar-header">
+
+          <button class="btn btn-default btn-navbar" data-toggle="collapse" data-target=".nav-collapse" style="float: right;">
+            <span class="glyphicon glyphicon-th">
+              Menu
+          </button>
+
+          <a class="navbar-brand" href="/" style="font-style: normal;">WhatIsMyFish.net : GOLANG Beta</a>
+
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <!-- <li class="active"><a href="#"></a></li> -->
+              <li><a href="/" style="color:grey;">Home</a></li>
+              <li><a href="/upload" style="color:grey;">ID Catch</a></li>
+              <li><a href="/regulations" style="color:grey;">Regulations</a></li>
+              <li><a href="/label" style="color:grey;">Expert ID</a></li>
+              <li><a href="/datadownload" style="color:grey;">Download Data</a></li>
+              <li><a href="/about" style="color:grey;">About Us</a></li>
+              <li><a href="/legal" style="color:grey;">Legal</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="container-fluid">
       <%= partial("flash.html") %>
       <%= yield %>
     </div>
 
+    <hr>
+    <footer class="footer" style="color:white">
+      GoFish is made with love in CLE
+      <br> Have some feedback?  <a href="mailto:thenomemac@gmail.com?Subject=GoFish">Send us an email!</a>
+      <br><a href="/legal">Legal</a>
+    </footer>
+    
     <%= javascriptTag("application.js") %>
   </body>
+
+
 </html>
