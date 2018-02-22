@@ -1,6 +1,8 @@
 package actions
 
 import (
+	"net/http"
+
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/middleware"
 	"github.com/gobuffalo/buffalo/middleware/csrf"
@@ -65,7 +67,8 @@ func App() *buffalo.App {
 
 		app.ServeFiles("/assets", assetsBox)
 
-		app.ServeFiles("/imgs", packr.NewBox("../imgs"))
+		// app.ServeFiles("/imgs", packr.NewBox("../imgs"))
+		app.ServeFiles("/imgs", http.Dir("./imgs"))
 
 		app.Resource("/fishpics", FishpicsResource{})
 

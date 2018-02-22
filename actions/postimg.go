@@ -36,7 +36,7 @@ func PostimgHandler(c buffalo.Context) error {
 
 	err = ioutil.WriteFile(fmt.Sprintf("./imgs/%s.jpg", fishpic.ID), body, 0600)
 	if err != nil {
-		log.Fatal(err)
+		errors.WithStack(err)
 	}
 
 	if errForm == nil {
