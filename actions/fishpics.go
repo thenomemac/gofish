@@ -1,9 +1,7 @@
 package actions
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 
 	"github.com/gobuffalo/buffalo"
 	"github.com/pkg/errors"
@@ -30,58 +28,14 @@ type FishpicsResource struct {
 // List gets all Fishpics. This function is mapped to the path
 // GET /fishpics
 func (v FishpicsResource) List(c buffalo.Context) error {
-	files, err := ioutil.ReadDir("./db")
+	fishpic := &models.Fishpic{}
+
+	fishpics, err := fishpic.List()
 	if err != nil {
 		errors.WithStack(err)
-	}
-
-	filenames := make([]string, len(files))
-	for i, file := range files {
-		filenames[i] = file.Name()
-	}
-
-	fishpics := make(models.Fishpics, len(filenames))
-
-	for i, filename := range filenames {
-		bytes, err := ioutil.ReadFile("./db/" + filename)
-		if err != nil {
-			errors.WithStack(err)
-		}
-		fmt.Println(filename, len(bytes))
-
-		err = json.Unmarshal(bytes, &fishpics[i])
-		if err != nil {
-			errors.WithStack(err)
-		}
 	}
 
 	return c.Render(200, r.JSON(fishpics))
-}
-
-func Find(model *models.Fishpic, id string) error {
-
-	files, err := ioutil.ReadDir("./db")
-	if err != nil {
-		errors.WithStack(err)
-	}
-
-	for _, file := range files {
-		if id == file.Name() {
-			bytes, err := ioutil.ReadFile("./db/" + id)
-			if err != nil {
-				errors.WithStack(err)
-			}
-
-			err = json.Unmarshal(bytes, model)
-			if err != nil {
-				errors.WithStack(err)
-			}
-			return nil
-		}
-
-	}
-
-	return errors.New("No data found with id: " + id)
 }
 
 // Show gets the data for one Fishpic. This function is mapped to
@@ -91,7 +45,7 @@ func (v FishpicsResource) Show(c buffalo.Context) error {
 	fishpic := &models.Fishpic{}
 
 	// To find the Fishpic the parameter fishpic_id is used.
-	if err := Find(fishpic, c.Param("fishpic_id")); err != nil {
+	if err := fishpic.Find(c.Param("fishpic_id")); err != nil {
 		return c.Error(404, err)
 	}
 

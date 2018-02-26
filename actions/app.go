@@ -1,8 +1,6 @@
 package actions
 
 import (
-	"net/http"
-
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/middleware"
 	"github.com/gobuffalo/buffalo/middleware/csrf"
@@ -68,11 +66,12 @@ func App() *buffalo.App {
 		app.ServeFiles("/assets", assetsBox)
 
 		// app.ServeFiles("/imgs", packr.NewBox("../imgs"))
-		app.ServeFiles("/imgs", http.Dir("./imgs"))
+		// app.ServeFiles("/imgs", http.Dir("./imgs"))
+		app.GET("/imgs/{fishpic_id}", GetImgHandler)
 
 		app.Resource("/fishpics", FishpicsResource{})
 
-		app.POST("/postimg", PostimgHandler)
+		app.POST("/postimg", PostImgHandler)
 
 		app.GET("/fishpic-results/{fishpic_id}", FishpicResultsHandler)
 	}

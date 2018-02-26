@@ -51,11 +51,12 @@ func FishpicResultsHandler(c buffalo.Context) error {
 	log.Println("fishpic_id:", id)
 
 	fishpic := &models.Fishpic{}
-	err := Find(fishpic, id)
+	err := fishpic.Find(id)
 	if err != nil {
 		errors.WithStack(err)
 	}
 
-	c.Set("fishpic_url", fmt.Sprintf("/imgs/%s.jpg", fishpic.ID))
+	fishpicURL := fmt.Sprintf("/imgs/%s.jpg", fishpic.ID)
+	c.Set("fishpic_url", fishpicURL)
 	return c.Render(200, r.HTML("fishpic-results.html"))
 }

@@ -17,4 +17,6 @@ install:
   - go get github.com/gobuffalo/buffalo/buffalo
   - go get $(go list ./... | grep -v /vendor/)
 
-script: buffalo test
+script:
+  - mkdir db imgs
+  - buffalo test

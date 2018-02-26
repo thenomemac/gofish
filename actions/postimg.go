@@ -10,7 +10,7 @@ import (
 	"github.com/thenomemac/gofish/models"
 )
 
-func PostimgHandler(c buffalo.Context) error {
+func PostImgHandler(c buffalo.Context) error {
 	var body []byte
 
 	body, errBody := ioutil.ReadAll(c.Request().Body)
@@ -26,22 +26,21 @@ func PostimgHandler(c buffalo.Context) error {
 		return c.Render(500, r.String("Upload an image fool!"))
 	}
 
-	log.Println("len::", len(body))
-
 	fishpic := models.Fishpic{}
 	err := fishpic.CreateAndSave()
 	if err != nil {
 		errors.WithStack(err)
 	}
 
-	err = ioutil.WriteFile(fmt.Sprintf("./imgs/%s.jpg", fishpic.ID), body, 0600)
+	if models.LOCAL_CACHE == "true" {
+		err = ioutil.WriteFile(fmt.Sprintf("fishpics/%s.jpg", fishpic.ID), body, 0600)
+	} else {
+		err = models.Uploader(fmt.Sprintf("fishpics/%s.jpg", fishpic.ID), body)
+	}
+
 	if err != nil {
 		errors.WithStack(err)
 	}
 
-	if errForm == nil {
-		return c.Redirect(301, "/fishpic-results/%s", fishpic.ID)
-	}
-
-	return c.Render(201, r.JSON(fishpic))
+	return c.Redirect(301, "/fishpic-results/%s", fishpic.ID)
 }
