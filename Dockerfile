@@ -29,9 +29,6 @@ ENV ADDR=0.0.0.0
 
 EXPOSE 3000
 
-# TODO: remove replace with s3
-RUN mkdir db imgs
-
 # Comment out to run the migrations before running the binary:
 # CMD /bin/app migrate; /bin/app
 CMD exec /bin/app
