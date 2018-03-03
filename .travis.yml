@@ -18,5 +18,4 @@ install:
   - go get $(go list ./... | grep -v /vendor/)
 
 script:
-  - mkdir db imgs
   - buffalo test

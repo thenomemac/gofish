@@ -15,8 +15,8 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 	"github.com/gobuffalo/envy"
+	"github.com/gobuffalo/uuid"
 	"github.com/pkg/errors"
-	"github.com/satori/go.uuid"
 )
 
 var LOCAL_CACHE = envy.Get("LOCAL_CACHE", "false")
