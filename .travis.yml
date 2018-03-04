@@ -14,7 +14,7 @@ before_script:
 go_import_path: github.com/thenomemac/gofish
 
 install:
-  - go get -t github.com/gobuffalo/buffalo/buffalo
+  - go get github.com/gobuffalo/buffalo/buffalo
   - go get -t $(go list ./... | grep -v /vendor/)
 
 script:
