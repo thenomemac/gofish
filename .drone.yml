@@ -3,7 +3,7 @@ workspace:
 
 pipeline:
   build:
-    image: gobuffalo/buffalo:v0.11.0  # golang:1.10
+    image: gobuffalo/buffalo:v0.11.0
     commands:
       - echo $GOROOT
       - echo $GOPATH
@@ -11,6 +11,7 @@ pipeline:
       - pwd
       - printenv
       - go version
+      - yarn install --no-progress
       - go get $(go list ./... | grep -v /vendor/)
       - buffalo test
       - buffalo build --static -o /bin/app
