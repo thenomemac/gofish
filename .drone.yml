@@ -4,6 +4,9 @@ pipeline:
     commands:
       - echo $GOROOT
       - echo $GOPATH
+      - ls $GOPATH
+      - pwd
+      - printenv
       - go version
       - go get github.com/gobuffalo/buffalo/buffalo
       - go get -t $(go list ./... | grep -v /vendor/)
