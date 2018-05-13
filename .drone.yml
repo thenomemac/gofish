@@ -1,0 +1,6 @@
+pipeline:
+  build:
+    image: golang
+    commands:
+      - go get github.com/gobuffalo/buffalo/buffalo
+      - go get -t $(go list ./... | grep -v /vendor/)
