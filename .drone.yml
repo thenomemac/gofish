@@ -8,6 +8,7 @@ pipeline:
       - echo $GOROOT
       - echo $GOPATH
       - ls $GOPATH
+      - ls $GOPATH/src/github.com/
       - pwd
       - printenv
       - go version
