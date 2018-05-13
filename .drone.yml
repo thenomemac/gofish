@@ -3,7 +3,7 @@ workspace:
 
 pipeline:
   build:
-    image: golang:1.10
+    image: gobuffalo/buffalo:v0.11.0  # golang:1.10
     commands:
       - echo $GOROOT
       - echo $GOPATH
@@ -11,7 +11,6 @@ pipeline:
       - pwd
       - printenv
       - go version
-      - docker build -t thenomemac/gofish .
-      - go get github.com/gobuffalo/buffalo/buffalo
-      - go get -t $(go list ./... | grep -v /vendor/)
+      - go get $(go list ./... | grep -v /vendor/)
       - buffalo test
+      - buffalo build --static -o /bin/app
