@@ -11,6 +11,7 @@ pipeline:
       - pwd
       - printenv
       - go version
+      - docker build -t thenomemac/gofish .
       - go get github.com/gobuffalo/buffalo/buffalo
       - go get -t $(go list ./... | grep -v /vendor/)
       - buffalo test
